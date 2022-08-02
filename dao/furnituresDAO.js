@@ -14,16 +14,16 @@ export default class FurnitureDAO {
 		}
 	}
 
-	static async uploadItem(user_id, name, price, desc, date) {
+	static async uploadItem(user_id, imageUrl, name, price, desc, date) {
 		try {
 			const uploadData = {
 				user_id: user_id,
+				imageUrl: imageUrl,
 				name: name,
 				price: price,
 				desc: desc,
 				date: date,
 			};
-			console.log(uploadData);
 			return await furnituresCollection.insertOne(uploadData);
 		} catch (e) {
 			console.error(`Unable to upload Item for sell: ${e}`);

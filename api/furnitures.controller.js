@@ -7,14 +7,16 @@ export default class FurnituresController {
 			const name = req.body.name;
 			const price = req.body.price;
 			const desc = req.body.description;
-			const user_id = req.body.user_id;
+			const user = req.body.user;
+			const category = req.body.category;
 			const date = new Date();
 
 			const uploadItemResponse = await FurnituresDAO.uploadItem(
-				user_id,
+				user,
 				imageUrl,
 				name,
 				price,
+				category,
 				desc,
 				date
 			);
@@ -26,6 +28,7 @@ export default class FurnituresController {
 				res.json({ status: "success" });
 			}
 		} catch (e) {
+			console.log("Reached here");
 			res.status(500).json({ error: e.message });
 		}
 	}

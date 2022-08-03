@@ -9,9 +9,7 @@ export default class ReviewsDAO {
 			return;
 		}
 		try {
-			reviews = await conn
-				.db(process.env.MOVIEREVIEWS_NS)
-				.collection("reviews");
+			reviews = await conn.db(process.env.FURNITURE_NS).collection("reviews");
 		} catch (e) {
 			console.error(`Unable to establish connection handle in reviewsDA: ${e}`);
 		}

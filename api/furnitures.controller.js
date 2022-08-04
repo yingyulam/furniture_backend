@@ -6,9 +6,10 @@ export default class FurnituresController {
 			const imageUrl = req.body.imageUrl;
 			const name = req.body.name;
 			const price = req.body.price;
-			const desc = req.body.description;
+			const description = req.body.description;
 			const user = req.body.user;
 			const category = req.body.category;
+			const condition = req.body.condition;
 			const date = new Date();
 
 			const uploadItemResponse = await FurnituresDAO.uploadItem(
@@ -17,7 +18,8 @@ export default class FurnituresController {
 				name,
 				price,
 				category,
-				desc,
+				description,
+				condition,
 				date
 			);
 

@@ -25,10 +25,10 @@ export default class MoviesDAO {
 			if ("name" in filters) {
 				query = { $text: { $search: filters["name"] } };
 			} else if ("category" in filters) {
-				query = { rated: { $eq: filters["category"] } };
+				query = { category: { $eq: filters["category"] } };
 			}
 		}
-
+		console.log(query);
 		let cursor;
 		try {
 			cursor = await movies

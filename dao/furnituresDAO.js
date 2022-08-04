@@ -14,7 +14,16 @@ export default class FurnitureDAO {
 		}
 	}
 
-	static async uploadItem(user, imageUrl, name, price, category, desc, date) {
+	static async uploadItem(
+		user,
+		imageUrl,
+		name,
+		price,
+		category,
+		description,
+		condition,
+		date
+	) {
 		try {
 			const uploadData = {
 				user: user,
@@ -22,7 +31,8 @@ export default class FurnitureDAO {
 				name: name,
 				category: category,
 				price: price,
-				desc: desc,
+				description: description,
+				condition: condition,
 				date: date,
 			};
 			console.log(uploadData);

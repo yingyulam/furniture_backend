@@ -8,6 +8,8 @@ const router = express.Router();
 router.route("/").get(FurnitureController.apiGetFurnitureCollection);
 router.route("/id/:id").get(FurnitureController.apiGetFurnitureById);
 router.route("/ratings").get(FurnitureController.apiGetRatings);
+router.route("/conditions").get(FurnitureController.apiGetConditions);
+
 
 router
 	.route("/review")

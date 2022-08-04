@@ -20,15 +20,17 @@ export default class FurnitureDAO {
 		page = 0,
 		furniturePerPage = 20,
 	} = {}) {
-		let query;
+		let query = {};
 		if (filters) {
 			if ("name" in filters) {
 				query = { $text: { $search: filters["name"] } };
 			} else if ("category" in filters) {
 				query = { category: { $eq: filters["category"] } };
-			}
+			} else if ("condition" in filters) {
+        query = { condition: { $eq: filters["condition"] } };
+      }
 		}
-		console.log(query);
+		//console.log(query);
 		let cursor;
 		try {
 			cursor = await furnitureCollection
@@ -52,6 +54,17 @@ export default class FurnitureDAO {
 		} catch (e) {
 			console.error(`Unable to get ratings, ${e}`);
 			return ratings;
+		}
+	}
+
+  static async getConditions() {
+		let conditions = [];
+		try {
+			conditions = await furnitureCollection.distinct("condition");
+			return conditions;
+		} catch (e) {
+			console.error(`Unable to get conditions, ${e}`);
+			return conditions;
 		}
 	}
 
@@ -103,7 +116,7 @@ export default class FurnitureDAO {
 				condition: condition,
 				date: date,
 			};
-			console.log(uploadData);
+			//console.log(uploadData);
 			return await furnitureCollection.insertOne(uploadData);
 		} catch (e) {
 			console.error(`Unable to upload Item for sell: ${e}`);

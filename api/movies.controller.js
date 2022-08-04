@@ -18,7 +18,7 @@ export default class MoviesController {
             FurnitureDAO.getMovies({ filters, page, moviesPerPage });
         
         let response = {
-            movies: moviesList,
+            furniture: moviesList,
             page: page,
             filters: filters,
             entries_per_page: moviesPerPage,

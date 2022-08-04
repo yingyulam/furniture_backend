@@ -8,10 +8,10 @@ export default class MoviesController {
         const page = req.query.page ? parseInt(req.query.page) : 0;
 
         let filters = {};
-        if (req.query.rated) {
-            filters.rated = req.query.rated;
-        } else if (req.query.title) {
-            filters.title = req.query.title;
+        if (req.query.category) {
+            filters.category = req.query.category;
+        } else if (req.query.name) {
+            filters.name = req.query.name;
         }
 
         const { moviesList, totalNumMovies } = await

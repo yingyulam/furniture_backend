@@ -1,15 +1,15 @@
 import mongodb from "mongodb";
 const ObjectId = mongodb.ObjectId;
 
-let movies;
+let furniture;
 
 export default class FurnitureDAO {
 	static async injectDB(conn) {
-		if (movies) {
+		if (furniture) {
 			return;
 		}
 		try {
-			movies = await conn.db(process.env.FURNITURE_NS).collection("furniture");
+			furniture = await conn.db(process.env.FURNITURE_NS).collection("furniture");
 		} catch (e) {
 			console.error(`Unable to connect in FurnitureDAO: ${e}`);
 		}
@@ -31,12 +31,12 @@ export default class FurnitureDAO {
 		console.log(query);
 		let cursor;
 		try {
-			cursor = await movies
+			cursor = await furniture
 				.find(query)
 				.limit(moviesPerPage)
 				.skip(moviesPerPage * page);
 			const moviesList = await cursor.toArray();
-			const totalNumMovies = await movies.countDocuments(query);
+			const totalNumMovies = await furniture.countDocuments(query);
 			return { moviesList, totalNumMovies };
 		} catch (e) {
 			console.error(`Unable to issue find command, ${e}`);
@@ -47,7 +47,7 @@ export default class FurnitureDAO {
 	static async getRatings() {
 		let ratings = [];
 		try {
-			ratings = await movies.distinct("category");
+			ratings = await furniture.distinct("category");
 			return ratings;
 		} catch (e) {
 			console.error(`Unable to get ratings, ${e}`);
@@ -57,7 +57,7 @@ export default class FurnitureDAO {
 
 	static async getMovieById(id) {
 		try {
-			return await movies
+			return await furniture
 				.aggregate([
 					{
 						$match: {
@@ -104,7 +104,7 @@ export default class FurnitureDAO {
 				date: date,
 			};
 			console.log(uploadData);
-			return await movies.insertOne(uploadData);
+			return await furniture.insertOne(uploadData);
 		} catch (e) {
 			console.error(`Unable to upload Item for sell: ${e}`);
 			return { error: e };

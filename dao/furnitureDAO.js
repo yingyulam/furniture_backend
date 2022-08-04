@@ -3,7 +3,7 @@ const ObjectId = mongodb.ObjectId;
 
 let movies;
 
-export default class MoviesDAO {
+export default class FurnitureDAO {
 	static async injectDB(conn) {
 		if (movies) {
 			return;
@@ -11,7 +11,7 @@ export default class MoviesDAO {
 		try {
 			movies = await conn.db(process.env.FURNITURE_NS).collection("furniture");
 		} catch (e) {
-			console.error(`Unable to connect in MoviesDAO: ${e}`);
+			console.error(`Unable to connect in FurnitureDAO: ${e}`);
 		}
 	}
 
@@ -77,6 +77,37 @@ export default class MoviesDAO {
 		} catch (e) {
 			console.error(`Something went wrong in getMovieById: ${e}`);
 			throw e;
+		}
+	}
+
+  //try this:
+
+  static async uploadItem(
+		user,
+		imageUrl,
+		name,
+		price,
+		category,
+		description,
+		condition,
+		date
+	) {
+		try {
+			const uploadData = {
+				user: user,
+				imageUrl: imageUrl,
+				name: name,
+				category: category,
+				price: price,
+				description: description,
+				condition: condition,
+				date: date,
+			};
+			console.log(uploadData);
+			return await movies.insertOne(uploadData);
+		} catch (e) {
+			console.error(`Unable to upload Item for sell: ${e}`);
+			return { error: e };
 		}
 	}
 }

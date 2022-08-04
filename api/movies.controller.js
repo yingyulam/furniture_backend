@@ -1,4 +1,4 @@
-import MoviesDAO from "../dao/moviesDAO.js";
+import FurnitureDAO from "../dao/furnitureDAO.js";
 
 export default class MoviesController {
 
@@ -15,7 +15,7 @@ export default class MoviesController {
         }
 
         const { moviesList, totalNumMovies } = await
-            MoviesDAO.getMovies({ filters, page, moviesPerPage });
+            FurnitureDAO.getMovies({ filters, page, moviesPerPage });
         
         let response = {
             movies: moviesList,
@@ -30,7 +30,7 @@ export default class MoviesController {
     static async apiGetMovieById(req, res, next) {
         try {
             let id = req.params.id || {};
-            let movie = await MoviesDAO.getMovieById(id);
+            let movie = await FurnitureDAO.getMovieById(id);
             if (!movie) {
                 res.status(404).json({ error: "not found"});
                 return;
@@ -44,7 +44,7 @@ export default class MoviesController {
 
     static async apiGetRatings(req, res, next) {
         try {
-            let propertyTypes = await MoviesDAO.getRatings();
+            let propertyTypes = await FurnitureDAO.getRatings();
             res.json(propertyTypes);
         } catch(e) {
             console.log(`API, ${e}`);

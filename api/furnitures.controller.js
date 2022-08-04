@@ -1,4 +1,4 @@
-import FurnituresDAO from "../dao/furnituresDAO.js";
+import FurnitureDAO from "../dao/furnitureDAO.js";
 
 export default class FurnituresController {
 	static async apiUploadItem(req, res, next) {
@@ -12,7 +12,7 @@ export default class FurnituresController {
 			const condition = req.body.condition;
 			const date = new Date();
 
-			const uploadItemResponse = await FurnituresDAO.uploadItem(
+			const uploadItemResponse = await FurnitureDAO.uploadItem(
 				user,
 				imageUrl,
 				name,

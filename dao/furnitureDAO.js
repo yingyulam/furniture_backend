@@ -1,24 +1,24 @@
 import mongodb from "mongodb";
 const ObjectId = mongodb.ObjectId;
 
-let furniture;
+let furnitureCollection;
 
 export default class FurnitureDAO {
 	static async injectDB(conn) {
-		if (furniture) {
+		if (furnitureCollection) {
 			return;
 		}
 		try {
-			furniture = await conn.db(process.env.FURNITURE_NS).collection("furniture");
+			furnitureCollection = await conn.db(process.env.FURNITURE_NS).collection("furniture");
 		} catch (e) {
 			console.error(`Unable to connect in FurnitureDAO: ${e}`);
 		}
 	}
 
-	static async getMovies({
+	static async getFurnitureCollection({
 		filters = null,
 		page = 0,
-		moviesPerPage = 20,
+		furniturePerPage = 20,
 	} = {}) {
 		let query;
 		if (filters) {
@@ -31,23 +31,23 @@ export default class FurnitureDAO {
 		console.log(query);
 		let cursor;
 		try {
-			cursor = await furniture
+			cursor = await furnitureCollection
 				.find(query)
-				.limit(moviesPerPage)
-				.skip(moviesPerPage * page);
-			const moviesList = await cursor.toArray();
-			const totalNumMovies = await furniture.countDocuments(query);
-			return { moviesList, totalNumMovies };
+				.limit(furniturePerPage)
+				.skip(furniturePerPage * page);
+			const furnitureList = await cursor.toArray();
+			const totalNumFurniture = await furnitureCollection.countDocuments(query);
+			return { furnitureList, totalNumFurniture };
 		} catch (e) {
 			console.error(`Unable to issue find command, ${e}`);
-			return { moviesList: [], totalNumMovies: 0 };
+			return { furnitureList: [], totalNumFurniture: 0 };
 		}
 	}
 
 	static async getRatings() {
 		let ratings = [];
 		try {
-			ratings = await furniture.distinct("category");
+			ratings = await furnitureCollection.distinct("category");
 			return ratings;
 		} catch (e) {
 			console.error(`Unable to get ratings, ${e}`);
@@ -55,9 +55,9 @@ export default class FurnitureDAO {
 		}
 	}
 
-	static async getMovieById(id) {
+	static async getFurnitureById(id) {
 		try {
-			return await furniture
+			return await furnitureCollection
 				.aggregate([
 					{
 						$match: {
@@ -75,7 +75,7 @@ export default class FurnitureDAO {
 				])
 				.next();
 		} catch (e) {
-			console.error(`Something went wrong in getMovieById: ${e}`);
+			console.error(`Something went wrong in getFurnitureById: ${e}`);
 			throw e;
 		}
 	}
@@ -104,7 +104,7 @@ export default class FurnitureDAO {
 				date: date,
 			};
 			console.log(uploadData);
-			return await furniture.insertOne(uploadData);
+			return await furnitureCollection.insertOne(uploadData);
 		} catch (e) {
 			console.error(`Unable to upload Item for sell: ${e}`);
 			return { error: e };

@@ -3,8 +3,8 @@ import FurnitureDAO from "../dao/furnitureDAO.js";
 export default class MoviesController {
 
     static async apiGetMovies(req, res, next) {
-        const moviesPerPage = req.query.moviesPerPage ?
-            parseInt(req.query.moviesPerPage) : 20;
+        const furniturePerPage = req.query.furniturePerPage ?
+            parseInt(req.query.furniturePerPage) : 20;
         const page = req.query.page ? parseInt(req.query.page) : 0;
 
         let filters = {};
@@ -14,15 +14,15 @@ export default class MoviesController {
             filters.name = req.query.name;
         }
 
-        const { moviesList, totalNumMovies } = await
-            FurnitureDAO.getMovies({ filters, page, moviesPerPage });
+        const { furnitureList, totalNumFurniture } = await
+            FurnitureDAO.getFurnitureCollection({ filters, page, furniturePerPage });
         
         let response = {
-            furniture: moviesList,
+            furniture: furnitureList,
             page: page,
             filters: filters,
-            entries_per_page: moviesPerPage,
-            total_results: totalNumMovies,
+            entries_per_page: furniturePerPage,
+            total_results: totalNumFurniture,
         };
         res.json(response);
     }
@@ -30,12 +30,12 @@ export default class MoviesController {
     static async apiGetMovieById(req, res, next) {
         try {
             let id = req.params.id || {};
-            let movie = await FurnitureDAO.getMovieById(id);
-            if (!movie) {
+            let furniture = await FurnitureDAO.getFurnitureById(id);
+            if (!furniture) {
                 res.status(404).json({ error: "not found"});
                 return;
             }
-            res.json(movie);
+            res.json(furniture);
         } catch(e) {
             console.log(`API, ${e}`);
             res.status(500).json({ error:e})

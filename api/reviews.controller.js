@@ -20,7 +20,7 @@ export default class ReviewsController {
 			);
 
 			var { error } = reviewResponse;
-			console.log(error);
+			//console.log(error);
 			if (error) {
 				res.status(500).json({ error: "Uable to post review." });
 			} else {
@@ -46,7 +46,7 @@ export default class ReviewsController {
 				date
 			);
 
-			console.log(reviewResponse);
+			//console.log(reviewResponse);
 
 			if (reviewResponse.modifiedCount === 0) {
 				res.status(500).json({ error: "No changes were made." });

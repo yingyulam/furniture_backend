@@ -3,6 +3,7 @@ import FurnitureDAO from "../dao/furnitureDAO.js";
 export default class FurnitureController {
 
     static async apiGetFurnitureCollection(req, res, next) {
+      //console.log(req.query);
         const furniturePerPage = req.query.furniturePerPage ?
             parseInt(req.query.furniturePerPage) : 20;
         const page = req.query.page ? parseInt(req.query.page) : 0;
@@ -10,9 +11,11 @@ export default class FurnitureController {
         let filters = {};
         if (req.query.category) {
             filters.category = req.query.category;
-        } else if (req.query.name) {
+        } else if (req.query.condition) {
+            filters.condition = req.query.condition;
+        }else if (req.query.name) {
             filters.name = req.query.name;
-        }
+        } 
 
         const { furnitureList, totalNumFurniture } = await
             FurnitureDAO.getFurnitureCollection({ filters, page, furniturePerPage });
@@ -52,6 +55,16 @@ export default class FurnitureController {
         }
     }
 
+    static async apiGetConditions(req, res, next) {
+      try {
+          let propertyTypes = await FurnitureDAO.getConditions();
+          res.json(propertyTypes);
+      } catch(e) {
+          console.log(`API, ${e}`);
+          res.status(500).json({ error: e});
+      }
+  }
+
     static async apiUploadItem(req, res, next) {
       try {
         const imageUrl = req.body.imageUrl;
@@ -81,7 +94,7 @@ export default class FurnitureController {
           res.json({ status: "success" });
         }
       } catch (e) {
-        console.log("Reached here");
+        //console.log("Reached here");
         res.status(500).json({ error: e.message });
       }
     }

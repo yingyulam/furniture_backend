@@ -9,6 +9,8 @@ Project idea: Once Upon A Furniture. An online platform for used furniture buy a
 
 Source of starter code: Rain's Movie Time Project in CS5610, Summer 2022
 
+Link to heroku: https://furnitureapp-backend.herokuapp.com/
+
 # Furniture-backend
 
 <h1>Iteration 1</h>

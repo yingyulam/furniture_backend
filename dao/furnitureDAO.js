@@ -46,14 +46,14 @@ export default class FurnitureDAO {
 		}
 	}
 
-	static async getRatings() {
-		let ratings = [];
+	static async getCategories() {
+		let categories = [];
 		try {
-			ratings = await furnitureCollection.distinct("category");
-			return ratings;
+			categories = await furnitureCollection.distinct("category");
+			return categories;
 		} catch (e) {
-			console.error(`Unable to get ratings, ${e}`);
-			return ratings;
+			console.error(`Unable to get categories, ${e}`);
+			return categories;
 		}
 	}
 

@@ -45,9 +45,9 @@ export default class FurnitureController {
         }
     }
 
-    static async apiGetRatings(req, res, next) {
+    static async apiGetCategories(req, res, next) {
         try {
-            let propertyTypes = await FurnitureDAO.getRatings();
+            let propertyTypes = await FurnitureDAO.getCategories();
             res.json(propertyTypes);
         } catch(e) {
             console.log(`API, ${e}`);

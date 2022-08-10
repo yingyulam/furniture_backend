@@ -23,17 +23,35 @@ export default class FurnitureDAO {
 		furniturePerPage = 20,
 	} = {}) {
 		let query = {};
-		if (filters) {
-			console.log(filters);
-			if ("name" in filters) {
-				query = { $text: { $search: filters["name"] } };
-			} else if ("category" in filters) {
-				query = { category: { $eq: filters["category"] } };
-			} else if ("condition" in filters) {
-				query = { condition: { $eq: filters["condition"] } };
-			}
-		}
-		//console.log(query);
+		const { title, category, condition } = filters;
+		if (title === "" && category === "" && condition === "") query = null;
+		else if (title === "" && category === "")
+			query = { condition: { $eq: condition } };
+		else if (title === "" && condition === "")
+			query = { category: { $eq: category } };
+		else if (category === "" && condition === "")
+			query = { $text: { $search: title } };
+		else if (title === "")
+			query = {
+				condition: condition,
+				category: category,
+			};
+		else if (category === "")
+			query = {
+				$and: [{ $text: { $search: title } }, { condition: condition }],
+			};
+		else if (condition === "")
+			query = {
+				$and: [{ $text: { $search: title } }, { category: category }],
+			};
+		else
+			query = {
+				$and: [
+					{ $text: { $search: title } },
+					{ category: category },
+					{ condition: condition },
+				],
+			};
 		let cursor;
 		try {
 			cursor = await furnitureCollection

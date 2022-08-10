@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.route("/").get(FurnitureController.apiGetFurnitureCollection);
 router.route("/id/:id").get(FurnitureController.apiGetFurnitureById);
-router.route("/id/:id").get(FurnitureController.apiGetFurnitureById);
 router.route("/categories").get(FurnitureController.apiGetCategories);
 router.route("/conditions").get(FurnitureController.apiGetConditions);
 router.route("/history/:userId").get(FurnitureController.apiGetFurnitureByUser);

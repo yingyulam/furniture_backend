@@ -7,15 +7,10 @@ export default class FurnitureController {
 			? parseInt(req.query.furniturePerPage)
 			: 20;
 		const page = req.query.page ? parseInt(req.query.page) : 0;
+		let filters = { ...req.query };
 
-		let filters = {};
-		if (req.query.category) {
-			filters.category = req.query.category;
-		} else if (req.query.condition) {
-			filters.condition = req.query.condition;
-		} else if (req.query.name) {
-			filters.name = req.query.name;
-		}
+		if (req.query.category === "All Categories") filters.category = "";
+		if (req.query.condition === "All Conditions") filters.condition = "";
 
 		const { furnitureList, totalNumFurniture } =
 			await FurnitureDAO.getFurnitureCollection({

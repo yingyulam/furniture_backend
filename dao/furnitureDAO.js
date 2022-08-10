@@ -9,7 +9,9 @@ export default class FurnitureDAO {
 			return;
 		}
 		try {
-			furnitureCollection = await conn.db(process.env.FURNITURE_NS).collection("furniture");
+			furnitureCollection = await conn
+				.db(process.env.FURNITURE_NS)
+				.collection("furniture");
 		} catch (e) {
 			console.error(`Unable to connect in FurnitureDAO: ${e}`);
 		}
@@ -22,13 +24,14 @@ export default class FurnitureDAO {
 	} = {}) {
 		let query = {};
 		if (filters) {
+			console.log(filters);
 			if ("name" in filters) {
 				query = { $text: { $search: filters["name"] } };
 			} else if ("category" in filters) {
 				query = { category: { $eq: filters["category"] } };
 			} else if ("condition" in filters) {
-        query = { condition: { $eq: filters["condition"] } };
-      }
+				query = { condition: { $eq: filters["condition"] } };
+			}
 		}
 		//console.log(query);
 		let cursor;
@@ -57,7 +60,7 @@ export default class FurnitureDAO {
 		}
 	}
 
-  static async getConditions() {
+	static async getConditions() {
 		let conditions = [];
 		try {
 			conditions = await furnitureCollection.distinct("condition");
@@ -93,9 +96,25 @@ export default class FurnitureDAO {
 		}
 	}
 
-  //try this:
+	static async getFurnitureHistoryByUserId(id) {
+		let query = {};
+		let cursor;
+		try {
+			query = { "user.googleId": id };
+			cursor = await furnitureCollection.find(query);
+			const history = await cursor.toArray();
+			return history;
+		} catch (e) {
+			console.error(
+				`Something went wrong in getFurnitureHistoryByUserId: ${e}`
+			);
+			throw e;
+		}
+	}
 
-  static async uploadItem(
+	//try this:
+
+	static async uploadItem(
 		user,
 		imageUrl,
 		name,

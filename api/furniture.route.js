@@ -7,9 +7,11 @@ const router = express.Router();
 
 router.route("/").get(FurnitureController.apiGetFurnitureCollection);
 router.route("/id/:id").get(FurnitureController.apiGetFurnitureById);
+router.route("/id/:id").get(FurnitureController.apiGetFurnitureById);
 router.route("/categories").get(FurnitureController.apiGetCategories);
 router.route("/conditions").get(FurnitureController.apiGetConditions);
-
+router.route("/history/:userId").get(FurnitureController.apiGetFurnitureByUser);
+router.route("/upload").post(FurnitureController.apiUploadItem);
 
 router
 	.route("/review")
@@ -20,7 +22,5 @@ router
 
 router.route("/favorite").put(FavoriteController.apiUpdateFavorites);
 router.route("/favorite/:userId").get(FavoriteController.apiGetFavorites);
-
-router.route("/upload").post(FurnitureController.apiUploadItem);
 
 export default router;

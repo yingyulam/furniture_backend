@@ -85,6 +85,7 @@ export default class FurnitureController {
 			const category = req.body.category;
 			const condition = req.body.condition;
 			const date = new Date();
+      const location = req.body.location;
 
 			const uploadItemResponse = await FurnitureDAO.uploadItem(
 				user,
@@ -94,7 +95,8 @@ export default class FurnitureController {
 				category,
 				description,
 				condition,
-				date
+				date,
+        location,
 			);
 
 			let { error } = uploadItemResponse;

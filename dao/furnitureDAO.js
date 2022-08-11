@@ -140,7 +140,8 @@ export default class FurnitureDAO {
 		category,
 		description,
 		condition,
-		date
+		date,
+    location,
 	) {
 		try {
 			const uploadData = {
@@ -152,6 +153,7 @@ export default class FurnitureDAO {
 				description: description,
 				condition: condition,
 				date: date,
+        location: location,
 			};
 			//console.log(uploadData);
 			return await furnitureCollection.insertOne(uploadData);

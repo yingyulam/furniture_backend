@@ -13,6 +13,22 @@ Link to heroku: https://furnitureapp-backend.herokuapp.com/
 
 # Furniture-backend
 
+<h1>Iteration 2</h1>
+
+Please see the frontend repository for screenshots.
+
+<h2>Peter: </h2>
+
+1. Added the selling history to the user profile page. 
+2. Created a navigation bar to look for furniture by categories.
+3. Improve the fiter functionality so we can filter by different features at the same time.
+
+<h2>Rain: </h2>
+
+1. Added a location section in the uploadItem page with autocomplete.
+2. Added a map in the product page to show the location of the listing.
+3. Working on the sort by price/date functionalities.
+
 <h1>Iteration 1</h>
 
 <h2>Peter</h2>

@@ -111,6 +111,43 @@ export default class FurnitureController {
 		}
 	}
 
+	static async apiUpdateItem(req, res, next) {
+		try {
+			const _id = req.body._id;
+			const imageUrl = req.body.imageUrl;
+			const name = req.body.name;
+			const price = req.body.price;
+			const description = req.body.description;
+			const user = req.body.user;
+			const category = req.body.category;
+			const condition = req.body.condition;
+			const date = new Date();
+			const location = req.body.location;
+
+			const updateItemResponse = await FurnitureDAO.updateItem(
+				_id,
+				user,
+				imageUrl,
+				name,
+				price,
+				category,
+				description,
+				condition,
+				date,
+				location
+			);
+
+			let { error } = updateItemResponse;
+			if (error) {
+				res.status(500).json({ error: "Unable to upload item for sell." });
+			} else {
+				res.json({ status: "success" });
+			}
+		} catch (e) {
+			res.status(500).json({ error: e.message });
+		}
+	}
+
 	static async apiDeleteItem(req, res, next) {
 		console.log("req:", req.body);
 		try {

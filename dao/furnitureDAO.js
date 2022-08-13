@@ -163,6 +163,46 @@ export default class FurnitureDAO {
 		}
 	}
 
+	static async updateItem(
+		_id,
+		user,
+		imageUrl,
+		name,
+		price,
+		category,
+		description,
+		condition,
+		date,
+		location
+	) {
+		try {
+			console.log(_id);
+			console.log(user.googleId);
+			return await furnitureCollection.updateOne(
+				{
+					_id: { $eq: ObjectId(_id) },
+					"user.googleId": { $eq: user.googleId },
+				},
+				{
+					$set: {
+						user: user,
+						imageUrl: imageUrl,
+						name: name,
+						price: price,
+						category: category,
+						description: description,
+						condition: condition,
+						date: date,
+						location: location,
+					},
+				}
+			);
+		} catch (e) {
+			console.error(`Unable to upload Item for sell: ${e}`);
+			return { error: e };
+		}
+	}
+
 	static async deleteItem(objectId, userId) {
 		try {
 			return await furnitureCollection.deleteOne({

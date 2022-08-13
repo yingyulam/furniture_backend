@@ -85,7 +85,7 @@ export default class FurnitureController {
 			const category = req.body.category;
 			const condition = req.body.condition;
 			const date = new Date();
-      const location = req.body.location;
+			const location = req.body.location;
 
 			const uploadItemResponse = await FurnitureDAO.uploadItem(
 				user,
@@ -96,7 +96,7 @@ export default class FurnitureController {
 				description,
 				condition,
 				date,
-        location,
+				location
 			);
 
 			let { error } = uploadItemResponse;
@@ -107,6 +107,24 @@ export default class FurnitureController {
 			}
 		} catch (e) {
 			//console.log("Reached here");
+			res.status(500).json({ error: e.message });
+		}
+	}
+
+	static async apiDeleteItem(req, res, next) {
+		console.log("req:", req.body);
+		try {
+			const objectId = req.body.objectId;
+			const userId = req.body.userId;
+
+			const deleteResponse = await FurnitureDAO.deleteItem(objectId, userId);
+
+			if (deleteResponse.deletedCount === 0) {
+				res.status(500).json({ error: "Do review was deleted." });
+			} else {
+				res.json({ status: "success" });
+			}
+		} catch (e) {
 			res.status(500).json({ error: e.message });
 		}
 	}

@@ -11,13 +11,14 @@ router.route("/categories").get(FurnitureController.apiGetCategories);
 router.route("/conditions").get(FurnitureController.apiGetConditions);
 router.route("/history/:userId").get(FurnitureController.apiGetFurnitureByUser);
 router.route("/upload").post(FurnitureController.apiUploadItem);
+router.route("/delete").delete(FurnitureController.apiDeleteItem);
 
-router
-	.route("/review")
-	.post(ReviewsController.apiPostReview)
-	//challenge portion
-	.put(ReviewsController.apiUpdateReview)
-	.delete(ReviewsController.apiDeleteReview);
+// router
+// 	.route("/review")
+// 	.post(ReviewsController.apiPostReview)
+// 	//challenge portion
+// 	.put(ReviewsController.apiUpdateReview)
+// 	.delete(ReviewsController.apiDeleteReview);
 
 router.route("/favorite").put(FavoriteController.apiUpdateFavorites);
 router.route("/favorite/:userId").get(FavoriteController.apiGetFavorites);

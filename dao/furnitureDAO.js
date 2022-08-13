@@ -141,7 +141,7 @@ export default class FurnitureDAO {
 		description,
 		condition,
 		date,
-    location,
+		location
 	) {
 		try {
 			const uploadData = {
@@ -153,12 +153,24 @@ export default class FurnitureDAO {
 				description: description,
 				condition: condition,
 				date: date,
-        location: location,
+				location: location,
 			};
 			//console.log(uploadData);
 			return await furnitureCollection.insertOne(uploadData);
 		} catch (e) {
 			console.error(`Unable to upload Item for sell: ${e}`);
+			return { error: e };
+		}
+	}
+
+	static async deleteItem(objectId, userId) {
+		try {
+			return await furnitureCollection.deleteOne({
+				_id: ObjectId(objectId),
+				"user.googleId": userId,
+			});
+		} catch (e) {
+			console.error(`Unable to delete review: ${e}`);
 			return { error: e };
 		}
 	}

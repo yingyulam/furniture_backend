@@ -2,7 +2,6 @@ import FurnitureDAO from "../dao/furnitureDAO.js";
 
 export default class FurnitureController {
 	static async apiGetFurnitureCollection(req, res, next) {
-		//console.log(req.query);
 		const furniturePerPage = req.query.furniturePerPage
 			? parseInt(req.query.furniturePerPage)
 			: 20;
@@ -149,7 +148,6 @@ export default class FurnitureController {
 	}
 
 	static async apiDeleteItem(req, res, next) {
-		console.log("req:", req.body);
 		try {
 			const objectId = req.body.objectId;
 			const userId = req.body.userId;

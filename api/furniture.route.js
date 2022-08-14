@@ -1,6 +1,5 @@
 import express from "express";
 import FurnitureController from "./furniture.controller.js";
-import ReviewsController from "./reviews.controller.js";
 import FavoriteController from "./favorites.controller.js";
 
 const router = express.Router();
@@ -13,13 +12,6 @@ router.route("/history/:userId").get(FurnitureController.apiGetFurnitureByUser);
 router.route("/upload").post(FurnitureController.apiUploadItem);
 router.route("/update").put(FurnitureController.apiUpdateItem);
 router.route("/delete").delete(FurnitureController.apiDeleteItem);
-
-// router
-// 	.route("/review")
-// 	.post(ReviewsController.apiPostReview)
-// 	//challenge portion
-// 	.put(ReviewsController.apiUpdateReview)
-// 	.delete(ReviewsController.apiDeleteReview);
 
 router.route("/favorite").put(FavoriteController.apiUpdateFavorites);
 router.route("/favorite/:userId").get(FavoriteController.apiGetFavorites);

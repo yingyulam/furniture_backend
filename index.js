@@ -1,9 +1,8 @@
 import app from "./server.js";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
-import ReviewsDAO from "./dao/reviewsDAO.js";
 import FavoritesDAO from "./dao/favoritesDAO.js";
-import FurnitureDAO from "./dao/furnitureDAO.js"
+import FurnitureDAO from "./dao/furnitureDAO.js";
 
 async function main() {
 	dotenv.config();
@@ -15,7 +14,6 @@ async function main() {
 		// Connect to MongoDB server
 		await client.connect();
 		await FurnitureDAO.injectDB(client);
-		await ReviewsDAO.injectDB(client);
 		await FavoritesDAO.injectDB(client);
 
 		app.listen(port, () => {

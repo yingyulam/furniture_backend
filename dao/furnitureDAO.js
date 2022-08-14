@@ -155,7 +155,6 @@ export default class FurnitureDAO {
 				date: date,
 				location: location,
 			};
-			//console.log(uploadData);
 			return await furnitureCollection.insertOne(uploadData);
 		} catch (e) {
 			console.error(`Unable to upload Item for sell: ${e}`);
@@ -176,8 +175,6 @@ export default class FurnitureDAO {
 		location
 	) {
 		try {
-			console.log(_id);
-			console.log(user.googleId);
 			return await furnitureCollection.updateOne(
 				{
 					_id: { $eq: ObjectId(_id) },

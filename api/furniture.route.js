@@ -15,5 +15,6 @@ router.route("/delete").delete(FurnitureController.apiDeleteItem);
 
 router.route("/favorite").put(FavoriteController.apiUpdateFavorites);
 router.route("/favorite/:userId").get(FavoriteController.apiGetFavorites);
+router.route("/profile").put(FavoriteController.apiUpdateProfile);
 
 export default router;

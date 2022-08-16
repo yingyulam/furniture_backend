@@ -28,6 +28,20 @@ export default class FavoritesDAO {
 		}
 	}
 
+	static async updateProfile(userId, imageUrl, nickname, contact) {
+		try {
+			const updateResponse = await favoritesCollection.updateOne(
+				{ _id: userId },
+				{ $set: { imageUrl: imageUrl, nickname: nickname, contact: contact } },
+				{ upsert: true }
+			);
+			return updateResponse;
+		} catch (e) {
+			console.error(`Unable to update favorites: ${e}`);
+			return { error: e };
+		}
+	}
+
 	static async getFavorites(id) {
 		let cursor;
 		try {

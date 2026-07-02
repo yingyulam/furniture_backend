@@ -9,7 +9,44 @@ Project idea: Once Upon A Furniture. An online platform for used furniture buy a
 
 Source of starter code: Rain's Movie Time Project in CS5610, Summer 2022
 
-Link to heroku: https://furnitureapp-backend.herokuapp.com/
+**Live API:** https://furniture-backend-255g.onrender.com
+**Live app:** https://furniture-frontend-weld.vercel.app
+
+---
+
+# 2026 Update — Modernized & Redeployed
+
+The original backend ran on Heroku's free tier (discontinued Nov 2022). In 2026 it
+was updated and redeployed on Render, backed by MongoDB Atlas.
+
+**What changed**
+- Added a root health route (`GET /`) and an `npm start` script.
+- Pinned the Node engine to `>=18`.
+- Used `new ObjectId()` in update/delete for modern driver compatibility.
+- Added a `.env.example` template; all config comes from environment variables.
+
+**Tech stack:** Node.js / Express (ES modules), MongoDB (Atlas driver v4), hosted
+on Render.
+
+## Running locally
+
+```bash
+npm install
+cp .env.example .env    # then fill in the values below
+npm start               # http://localhost:8000  ->  {"status":"ok"}
+```
+
+Required environment variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `FURNITURE_DB_URI` | MongoDB Atlas connection string |
+| `FURNITURE_NS` | Database name (e.g. `furniture_db`) |
+| `PORT` | Port (optional locally; hosts inject their own) |
+
+`.env` is gitignored — never commit real secrets.
+
+---
 
 # Furniture-backend
 

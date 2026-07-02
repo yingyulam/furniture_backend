@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.json({ status: "ok", service: "furniture-backend" });
+});
+
 app.use("/api/v1/furniture", furniture);
 app.use('*', (req, res) => {
     res.status(404).json({error: "not found"});

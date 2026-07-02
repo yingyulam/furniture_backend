@@ -177,7 +177,7 @@ export default class FurnitureDAO {
 		try {
 			return await furnitureCollection.updateOne(
 				{
-					_id: { $eq: ObjectId(_id) },
+					_id: { $eq: new ObjectId(_id) },
 					"user.googleId": { $eq: user.googleId },
 				},
 				{
@@ -203,7 +203,7 @@ export default class FurnitureDAO {
 	static async deleteItem(objectId, userId) {
 		try {
 			return await furnitureCollection.deleteOne({
-				_id: ObjectId(objectId),
+				_id: new ObjectId(objectId),
 				"user.googleId": userId,
 			});
 		} catch (e) {
